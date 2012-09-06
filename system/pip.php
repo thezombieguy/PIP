@@ -3,7 +3,7 @@
 function pip()
 {
 	global $config;
-    
+  global $route;  
     // Set our defaults
     $controller = $config['default_controller'];
     $action = 'index';
@@ -15,10 +15,15 @@ function pip()
     	
 	// Get our url path and trim the / of the left and the right
 	if($request_url != $script_url) $url = trim(preg_replace('/'. str_replace('/', '\/', str_replace('index.php', '', $script_url)) .'/', '', $request_url, 1), '/');
-    
+  //lets check if we are routing anything here.
+  $router = new Route();
+  $url = $router->map($route, $url);
 	// Split the url into segments
 	$segments = explode('/', $url);
 	
+	
+	//print_r($url);
+	//print_r($segments);die;
 	// Do our default checks
 	if(isset($segments[0]) && $segments[0] != '') $controller = $segments[0];
 	if(isset($segments[1]) && $segments[1] != '') $action = $segments[1];
