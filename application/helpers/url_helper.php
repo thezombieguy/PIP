@@ -16,6 +16,12 @@ class Url_helper {
 	    return isset($parts[$seg]) ? $parts[$seg] : false;
 	}
 	
+	function l($path, $title) 
+  {
+    global $config;
+    return '<a href="'.$config['base_url'] . $path.'">'.$title.'</a>';
+  }
+	
 }
 
 ?>
