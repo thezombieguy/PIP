@@ -18,6 +18,27 @@ class Form
   }
 
 
+  public static function build($form)
+  {
+    //print_r($form);
+    $html = '';
+    foreach($form as $element => $attributes)
+    {
+      $prefix = isset($attributes['#prefix']) ? $attributes['#prefix'] : '';
+      $suffix = isset($attributes['#suffix']) ? $attributes['#suffix'] : '';
+      switch($attributes['type'])
+      {
+        case "textarea":
+          break;
+        default:
+          $html .= $prefix . '<input type="'.$attributes['type'].'" name="'.$attributes['name'].'" value="'.$attributes['value'].'" />' . $suffix;
+          break;
+      }
+    }
+    
+    return $html;
+  }
+
 
   // render <form> opening tag
 
