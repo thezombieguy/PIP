@@ -3,7 +3,7 @@
 class Form
 {
 
-  private function setAttributes($attributes = array())
+  public function setAttributes($attributes = array())
   {
     
     $attr = array();
@@ -16,16 +16,44 @@ class Form
     
     return implode(' ', $attr);
   }
+  
+  public function formSource()
+  {
+    $url = '';
+    // Get request url and script url
+	  $request_url = (isset($_SERVER['REQUEST_URI'])) ? $_SERVER['REQUEST_URI'] : '';
+	  $script_url  = (isset($_SERVER['PHP_SELF'])) ? $_SERVER['PHP_SELF'] : '';
+      	
+	  // Get our url path and trim the / of the left and the right
+	  if($request_url != $script_url) $url = trim(preg_replace('/'. str_replace('/', '\/', str_replace('index.php', '', $script_url)) .'/', '', $request_url, 1), '/');
+	  
+	  return $url;
+  }
+
   /*
-   * if we use this, we can detect a session form build error, rebuild the form, and if ERROR = true
-   * we can rebuild the form with the session data vars already filled in. also, we could highlight the error areas.
-   */
+   *
+    array(
+      'method' => 'POST', //form method
+      'action' => 'test/post', //action
+      '#form_id' => 'form_id', //unique form id
+      'name' => 'form_id', //name of form. 
+      '#source' => 'test', //where the form originates
+      '#elements' => array() //array of elements for each field
+    );
+  
+  #elements is an erray of elements for each form field for the form.
+  */
   public function build($form)
   {
 
     $html = '';
     
+    if(empty($form['#source'])){
+      $form['#source'] = $this->formSource();//this is for redirecting back to a form after a failed validation. needs work.
+    }
+    
     $html .= $this->open($form);
+    
     $form['#elements'][] = array('type' => 'hidden', 'name' => 'form_id', 'value' => $form['#form_id']);
     foreach($form['#elements'] as $element => $attributes)
     {
@@ -45,7 +73,13 @@ class Form
         case "select":
           $html .= $prefix . $this->select($attributes) . $suffix;
           break;
-        case "input":
+        case "radio":
+          $html .= $prefix . $this->radio($attributes) . $suffix;
+          break;
+        case "checkbox":
+          $html .= $prefix . $this->checkbox($attributes) . $suffix;
+          break;
+        case "text":
         case "hidden":
         default:
           $html .= $prefix . $this->input($attributes) . $suffix;
@@ -55,46 +89,76 @@ class Form
     $html .= $this->close();
     return $html;
   }
-  
-  private function input($attributes)
+  /*
+    array(
+      'type'=> 'text', //type of field  text/hidden
+      'name' => 'Location', //name
+      'value' => '', //value for default value.
+    )
+  */
+  public function input($attributes)
   {
-    return '<input type="'.$attributes['type'].'" name="'.$attributes['name'].'" value="'.$attributes['value'].'" '.$this->setAttributes($attributes['#attributes']).' />';
+    $att = (!empty($attributes['#attributes'])) ? $this->setAttributes($attributes['#attributes']) : '';
+    return '<input type="'.$attributes['type'].'" name="'.$attributes['name'].'" value="'.$attributes['value'].'" '.$att.' />';
   }
   
-  private function textarea($attributes)
+  public function textarea($attributes)
   {
-    return '<'.$attributes['type'].' name="'.$attributes['name'].'" value="'.$attributes['value'].'" rows="'.$attributes['rows'].'" cols="'.$attributes['cols'].'" />';
+    $att = (!empty($attributes['#attributes'])) ? $this->setAttributes($attributes['#attributes']) : '';
+    return '<textarea name="'.$attributes['name'].'" value="'.$attributes['value'].'" rows="'.$attributes['rows'].'" cols="'.$attributes['cols'].'" '.$att.'/>';
+  }
+  /*
+    array(
+      'type' => 'label', //type for label
+      'for' => 'Location', //for what field
+      'title' => 'Location:', //title value
+    ),
+  */
+  public function label($attributes)
+  {
+    $att = (!empty($attributes['#attributes'])) ? $this->setAttributes($attributes['#attributes']) : '';
+    return '<label for="' . $attributes['for'] . '" '.$att.'>' . $attributes['title'] . '</label>';
   }
   
-  private function label($attributes)
-  {
-    return '<' . $attributes['type'] . ' for="' . $attributes['for'] . '" >' . $attributes['title'] . '</label>';
-  }
-  
-  private function select($attributes)
+  public function select($attributes)
   {
     $html = '';
-    
-    $html = '<select name="' . $attributes['name'] . '" ' .$this->setAttributes($attributes['#attributes']) . '">';
-    foreach($attributes['options'] as $option => $value){
-      $html .= '<option value="'.$option.'">'.$value.'</option>';
+    $att = (!empty($attributes['#attributes'])) ? $this->setAttributes($attributes['#attributes']) : '';
+    $html = '<select name="' . $attributes['name'] . '" ' .$att . '">';
+    foreach($attributes['options'] as $value => $option){
+      $html .= '<option value="'.$value.'">'.$option.'</option>';
     }
     $html .= '</select>';
     
     return $html;
   }
-
-
-  // render <form> opening tag
+  
+  public function radio($attributes)
+  {
+    $html = '';
+    $att = (!empty($attributes['#attributes'])) ? $this->setAttributes($attributes['#attributes']) : '';
+    foreach($attributes['options'] as $value){
+      $checked = ($value == $attributes['checked']) ? 'checked' : '' ;
+      $html .= '<input type="radio" name="'.$attributes['name'].'" value="'.$value.'" '.$att.' '.$checked.'/>'.$value;
+    }
+    
+    return $html;
+    
+  }
+  
+  public function checkbox($attributes)
+  {
+    $att = (!empty($attributes['#attributes'])) ? $this->setAttributes($attributes['#attributes']) : '';
+    $checked = (!empty($attributes['checked'])) ? 'checked' : '' ;
+    return '<input type="'.$attributes['type'].'" name="'.$attributes['name'].'" value="'.$attributes['value'].'" '.$checked .' '.$att.' />'.$attributes['value']; 
+  }
 
   public function open($form)
   {             
     $html = '<form name="'.$form['name'].'" method="'.$form['method'].'" action="'.$form['action'].'" >';
+    $html.= $this->input(array('type' => 'hidden', 'name' => 'source', 'value' => $form['#source']));
     return $html;
   }
-
-
-  // render </form> closing tag
 
   public static function close()
   {
