@@ -1,6 +1,6 @@
 <?php
 
-class Form extends Model
+class Form
 {
 
   private function setAttributes($attributes = array())
