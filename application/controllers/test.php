@@ -2,6 +2,20 @@
 
   class Test extends Controller
   {
+    function index()
+    {
+      $link = array(
+        '' => 'home',
+        'test/form' => 'Form Test',
+        'test/xml' => 'RPC Test',
+        'test/cache' => 'Cache Test',
+      );
+      $url = $this->loadHelper('Url_helper');
+      foreach($link as $path => $title){
+        print "<li>".$url->l($path, $title)."</li>";
+      }
+    }
+    
     function form()
     {      
       $form = array(
