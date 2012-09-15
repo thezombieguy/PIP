@@ -2,30 +2,11 @@
 
 class Controller {
 	
-	public function loadModel($name)
-	{
-		require(APP_DIR .'models/'. strtolower($name) .'.php');
-
-		$model = new $name;
-		return $model;
-	}
+	public $load;
 	
-	public function loadView($name)
+	public function __construct()
 	{
-		$view = new View($name);
-		return $view;
-	}
-	
-	public function loadPlugin($name)
-	{
-		require(APP_DIR .'plugins/'. strtolower($name) .'.php');
-	}
-	
-	public function loadHelper($name)
-	{
-		require(APP_DIR .'helpers/'. strtolower($name) .'.php');
-		$helper = new $name;
-		return $helper;
+	  $this->load = new Load();
 	}
 	
 	public function redirect($loc)

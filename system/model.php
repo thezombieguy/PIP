@@ -3,6 +3,7 @@
 class Model {
 
 	private $connection;
+	private $load;
 
 	public function __construct()
 	{
@@ -10,6 +11,7 @@ class Model {
 		
 		$this->connection = mysql_pconnect($config['db_host'], $config['db_username'], $config['db_password']) or die('MySQL Error: '. mysql_error());
 		mysql_select_db($config['db_name'], $this->connection);
+		$this->load = new Load();
 	}
 
 	public function escapeString($string)

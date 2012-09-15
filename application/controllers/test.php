@@ -9,8 +9,9 @@
         'test/form' => 'Form Test',
         'test/xml' => 'RPC Test',
         'test/cache' => 'Cache Test',
+        'test/menu' => 'Menu test',
       );
-      $url = $this->loadHelper('Url_helper');
+      $url = $this->load->helper('Url_helper');
       foreach($link as $path => $title){
         print "<li>".$url->l($path, $title)."</li>";
       }
@@ -46,8 +47,8 @@
           ),
         ),
       );
-      $m = $this->loadHelper('Menu_helper');
-      print $m->menu($menu);
+      $m = $this->load->helper('Menu_helper');
+      print $m->build($menu);
     }
     
     function form()
@@ -143,7 +144,7 @@
           ),
         ),
       );
-      $f = $this->loadHelper('Form');
+      $f = $this->load->helper('Form');
       print $f->build($form);
       $radio = array(
             'type' => 'radio',
@@ -165,7 +166,7 @@
     
     function cache()
     {
-      $cache = $this->loadModel('cache_model');
+      $cache = $this->load->model('cache_model');
       $cache->set('bob', time());
       $bob = $cache->get('bob');
       print $bob->html;
@@ -174,8 +175,8 @@
     public function xml()
     {
       $url = 'http://www.engadget.com/rss.xml';
-      $http = $this->loadModel('http_model');
-      $utils = $this->loadHelper('utils');
+      $http = $this->load->model('http_model');
+      $utils = $this->load->helper('utils');
       $xml = $http->request($url);
       $utils->print_rr($utils->xml_to_array($xml));
     }
