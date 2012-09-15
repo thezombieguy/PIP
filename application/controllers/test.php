@@ -3,8 +3,7 @@
   class Test extends Controller
   {
     function form()
-    {
-           
+    {      
       $form = array(
         'method' => 'POST',
         'action' => 'test/post',
@@ -114,6 +113,23 @@
             '#suffix' => '</div>',
           );
       print $f->radio($radio);
+    }
+    
+    function cache()
+    {
+      $cache = $this->loadModel('cache_model');
+      $cache->set('bob', time());
+      $bob = $cache->get('bob');
+      print $bob->html;
+    }
+    
+    public function xml()
+    {
+      $url = 'http://www.engadget.com/rss.xml';
+      $http = $this->loadModel('http_model');
+      $utils = $this->loadHelper('utils');
+      $xml = $http->request($url);
+      $utils->print_rr($utils->xml_to_array($xml));
     }
    
  }
