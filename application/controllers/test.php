@@ -16,6 +16,40 @@
       }
     }
     
+    function menu()
+    {
+      $menu = array(
+        array(
+          'title' => 'Home',
+          'url' => '/home',
+        ),
+        array(
+          'title' => 'Test Index',
+          'url' => '/test',
+          'children' => array(
+            array(
+              'title' => 'Test Form',
+              'url' => '/test/form',
+            ),
+            array(
+              'title' => 'Test Cache',
+              'url' => '/test/cache',
+            ),
+            array(
+              'title' => 'Test Menu',
+              'url' => '/test/menu',
+            ),
+            array(
+              'title' => 'Test xml',
+              'url' => '/test/xml',
+            ),
+          ),
+        ),
+      );
+      $m = $this->loadHelper('Menu_helper');
+      print $m->menu($menu);
+    }
+    
     function form()
     {      
       $form = array(
