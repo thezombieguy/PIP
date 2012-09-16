@@ -2,27 +2,55 @@
 
 class Url_helper {
 
+  /*
+   * Returns the base url
+   *
+   * @return  string The base url
+   */
 	function base_url()
 	{
 		global $config;
 		return $config['base_url'];
 	}
 	
+  /*
+   * Returns a segment of the url
+   *
+   * @param integer $seg  the segment identifier
+   * @return  string  $url  The contoller/action/parameter value of the url segment
+   */
 	function segment($seg)
 	{
 		if(!is_int($seg)) return false;
 		
 		$parts = explode('/', $_SERVER['REQUEST_URI']);
-	    return isset($parts[$seg]) ? $parts[$seg] : false;
+	  return isset($parts[$seg]) ? $parts[$seg] : false;
 	}
 	
-	function l($path, $title) 
+	/*
+	 * Returns path as formatted html anchor tag
+	 * 
+	 * @param string  $path the controller/action path you are linking to
+	 * @param string  $title  the title of the path.
+	 * @param   array $attributes the extra attributes for this anchor tag
+	 * @return  string  the html formatted anchor tag
+	 */
+	function l($path, $title, $attributes = array()) 
   {
     global $config;
-    return '<a href="'.$config['base_url'] . $path.'">'.$title.'</a>';
+    $att = array();
+    foreach($attributes as $attribute => $value){
+      $att[] = $attribute .'="' . $value.'"';
+    }
+    return '<a href="'.$config['base_url'] . $path.'" '. implode(' ', $att) .'>'.$title.'</a>';
   }
   
-  function getUrl()
+  /*
+   * Returns the current url
+   *
+   * @return  string  $url  The current url
+   */
+  function url()
   {
     $url = '';
     // Get request url and script url
