@@ -22,27 +22,27 @@
       $menu = array(
         array(
           'title' => 'Home',
-          'url' => '/home',
+          'url' => '',
         ),
         array(
           'title' => 'Test Index',
-          'url' => '/test',
+          'url' => 'test',
           'children' => array(
             array(
               'title' => 'Test Form',
-              'url' => '/test/form',
+              'url' => 'test/form',
             ),
             array(
               'title' => 'Test Cache',
-              'url' => '/test/cache',
+              'url' => 'test/cache',
             ),
             array(
               'title' => 'Test Menu',
-              'url' => '/test/menu',
+              'url' => 'test/menu',
             ),
             array(
               'title' => 'Test xml',
-              'url' => '/test/xml',
+              'url' => 'test/xml',
             ),
           ),
         ),
@@ -176,9 +176,9 @@
     {
       $url = 'http://www.engadget.com/rss.xml';
       $http = $this->load->model('http_model');
-      $utils = $this->load->helper('utils');
+      $utils = $this->load->helper('utility_helper');
       $xml = $http->request($url);
-      $utils->print_rr($utils->xml_to_array($xml));
+      $utils->debug($utils->xml_to_array($xml));
     }
    
  }
