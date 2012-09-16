@@ -1,21 +1,27 @@
 <?php
 
-class Controller {
+  class Controller {
 	
-	public $load;
+	  public $load;
+
+	  public function __construct()
+	  {
+	    $this->load = new Load();
+	  }
 	
-	public function __construct()
-	{
-	  $this->load = new Load();
-	}
-	
-	public function redirect($loc)
-	{
-		global $config;
+	  /*
+	   * Recirects to a new url
+	   *
+	   * @param   string  $loc  URL to recirect to 
+	   * @return  void
+	   */
+    public function redirect($loc)
+	  {
+		  global $config;
 		
-		header('Location: '. $config['base_url'] . $loc);
-	}
-    
-}
+		  header('Location: '. $config['base_url'] . $loc);
+	  }
+      
+  }
 
 ?>
