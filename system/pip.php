@@ -4,10 +4,7 @@
   {
 	  global $config;
     global $route; 
-     
-    // Set our defaults
-    $controller = $config['default_controller'];
-    $action = 'index';
+
     $url = '';
 
 	  // Get request url and script url
@@ -24,9 +21,9 @@
 	  // Split the url into segments
 	  $segments = explode('/', $url);
 
-	  // Do our default checks
-	  if(isset($segments[0]) && $segments[0] != '') $controller = $segments[0];
-	  if(isset($segments[1]) && $segments[1] != '') $action = $segments[1];
+	  // Set our defaults, Do our default checks
+	  $controller = (isset($segments[0]) && ($segments[0] != '')) ? $segments[0] : $config['default_controller'];
+	  $action = (isset($segments[1]) && $segments[1] != '') ? $segments[1] : 'index';
 
 	  // Get our controller file
     $path = APP_DIR . 'controllers/' . $controller . '.php';
