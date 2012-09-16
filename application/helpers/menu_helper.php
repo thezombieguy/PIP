@@ -2,15 +2,16 @@
 
 class Menu_helper
 {
-  private $load;
   
   public function build($items)
   {
+    global $config;
+    
     $nav = '<ul>';
     
-    foreach($items as $item){
-      
-      $nav .= '<li class="nav"><a href="'.$item['url'].'">'.$item['title'].'</a>';
+    foreach($items as $index => $item){
+    
+      $nav .= '<li class="nav"><a href="'.$config['base_url'] . $item['url'].'">'.$item['title'].'</a>';
       $nav .= isset($item['children']) ? $this->build($item['children']) : NULL;
       $nav .= '</li>';
       
@@ -18,6 +19,11 @@ class Menu_helper
     $nav .= '</ul>';
     
     return $nav;
+  }
+  
+  public function current()
+  {
+  
   }
 }
 
