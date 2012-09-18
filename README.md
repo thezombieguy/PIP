@@ -20,6 +20,20 @@ Visit [http://gilbitron.github.com/PIP](http://gilbitron.github.com/PIP/) for mo
 
 Visit [http://gilbitron.github.com/PIP](http://gilbitron.github.com/PIP/) to see the documentation.
 
+There are several helper functions that can also be used in controllers. Most of these functions take the parameter $name of the corresponding class:
+
+load->model($name) - Load a model
+
+load->view($name) - Load a view
+
+load->helper($name) - Load a helper
+
+redirect($location) - Redirect to a page without having to include the base URL. E.g:
+  
+    $this->redirect('some_class/some_function');
+    $this->load->helper('Session_helper');
+
+
 ## License
 
 PIP is released under the MIT license.
