@@ -1,50 +1,81 @@
 <?php
 
-  function pip()
-  {
-	  global $config;
-    global $route; 
-
-    $url = '';
-
-	  // Get request url and script url
-	  $request_url = (isset($_SERVER['REQUEST_URI'])) ? $_SERVER['REQUEST_URI'] : '';
-	  $script_url  = (isset($_SERVER['PHP_SELF'])) ? $_SERVER['PHP_SELF'] : '';
-      	
-	  // Get our url path and trim the / of the left and the right
-	  if($request_url != $script_url) $url = trim(preg_replace('/'. str_replace('/', '\/', str_replace('index.php', '', $script_url)) .'/', '', $request_url, 1), '/');
-	
-	  //lets check if we are routing anything here.
-    $router = new Route();
-    $url = $router->map($route, $url);
-	
-	  // Split the url into segments
-	  $segments = explode('/', $url);
-
-	  // Set our defaults, Do our default checks
-	  $controller = (isset($segments[0]) && ($segments[0] != '')) ? $segments[0] : $config['default_controller'];
-	  $action = (isset($segments[1]) && $segments[1] != '') ? $segments[1] : 'index';
-
-	  // Get our controller file
-    $path = APP_DIR . 'controllers/' . $controller . '.php';
-    
-	  if(file_exists($path)){
-          require_once($path);
-	  } else {
-          $controller = $config['error_controller'];
-          require_once(APP_DIR . 'controllers/' . $controller . '.php');
-	  }
+  class Pip {
+  
+    /*
+     * initialize the controller/action method
+     *
+     * we are using the autoloader method, so class includes have been removed.
+     */
+    public function __construct()
+    {
+	    global $config;
       
-      // Check the action exists
-      if(!method_exists($controller, $action)){
-          $controller = $config['error_controller'];
-          require_once(APP_DIR . 'controllers/' . $controller . '.php');
-          $action = 'index';
-      }
-	
-	  // Create object and call method
-	  $obj = new $controller;
-      die(call_user_func_array(array($obj, $action), array_slice($segments, 2)));
-  }
 
+      $url = $this->url();
+
+	    $segments = explode('/', $url);
+
+	    $method = $this->controllerValidate(
+	      array(
+          'controller' => (isset($segments[0]) && ($segments[0] != '')) ? $segments[0] : $config['default_controller'],
+          'action' => (isset($segments[1]) && $segments[1] != '') ? $segments[1] : 'index',
+        )
+      );
+	    
+	    $controller = $method['controller'];
+	    $action = $method['action'];
+
+	    $obj = new $controller;
+        die(call_user_func_array(array($obj, $action), array_slice($segments, 2)));
+    }
+    
+    /*
+     * Retrieves the url for parsing controller/action methods
+     *
+     * @return  string  $url  the url path with routing method
+     */
+    private function url()
+    {
+      global $route; 
+      
+      $url = '';
+
+	    $request_url = (isset($_SERVER['REQUEST_URI'])) ? $_SERVER['REQUEST_URI'] : '';
+	    $script_url  = (isset($_SERVER['PHP_SELF'])) ? $_SERVER['PHP_SELF'] : '';
+
+	    if($request_url != $script_url) 
+	    {
+	      $url = trim(preg_replace('/'. str_replace('/', '\/', str_replace('index.php', '', $script_url)) .'/', '', $request_url, 1), '/');
+      }
+      $router = new Route();
+      $url = $router->map($route, $url);
+      return $url;
+    }
+    
+    /*
+     * validates the controller / method and defaults to error controller
+     *
+     * @param   array $method The controller/action pair in an array
+     * @return  array $method controller with error defaults if controller/action doesn't exist
+     */
+    private function controllerValidate($method) 
+    {
+      global $config;
+
+      $path = APP_DIR . 'controllers/' . $method['controller'] . '.php';
+      
+      if(!file_exists($path)){
+        $method['controller'] = $config['error_controller'];
+      }
+      
+      if(!method_exists($method['controller'], $method['action'])){
+        $method['controller'] = $config['error_controller'];
+        $method['action'] = 'index';
+      }
+      
+      return $method;
+    }
+    
+  }
 ?>

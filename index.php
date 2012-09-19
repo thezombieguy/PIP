@@ -3,26 +3,37 @@
  * PIP v0.5.3
  */
 
-//Start the Session
-session_start(); 
-
 // Defines
 define('ROOT_DIR', realpath(dirname(__FILE__)) .'/');
 define('APP_DIR', ROOT_DIR .'application/');
-
-// Includes
 require(APP_DIR .'config/config.php');
-require(ROOT_DIR .'system/load.php');
-require(ROOT_DIR .'system/route.php');
-require(ROOT_DIR .'system/model.php');
-require(ROOT_DIR .'system/view.php');
-require(ROOT_DIR .'system/controller.php');
-require(ROOT_DIR .'system/pip.php');
 
 // Define base URL
 global $config;
 define('BASE_URL', $config['base_url']);
 
-pip();
+//autoload
+function __autoload($class) 
+{
+  global $config;
+  $paths = array(
+    ROOT_DIR .'system/',
+    APP_DIR . 'controllers/',
+    APP_DIR . 'helpers/',
+    APP_DIR . 'models/',
+    APP_DIR . 'plugins/',
+  );
+
+  foreach($paths as $path){
+    if(file_exists($path . strtolower($class) . '.php')) {
+      require_once($path . strtolower($class) . '.php');
+    }
+  }
+}
+
+//Start the Session
+session_start(); 
+
+$pip = new Pip();
 
 ?>
