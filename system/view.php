@@ -1,6 +1,14 @@
 <?php
-
-  class View {
+/*
+ * View class
+ *
+ * Lods a view.
+ *
+ * @author Original Gilbert Pellegrom https://github.com/gilbitron
+ * @author Bryan Trudel
+ * @package PIP
+ */
+   class View {
 
 	  private $pageVars = array();
 	  private $template;

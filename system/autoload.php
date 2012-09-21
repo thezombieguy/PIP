@@ -1,28 +1,47 @@
 <?php
-
+/*
+ * Autoload class
+ *
+ * Registers autoload clallback.
+ *
+ * @author Bryan Trudel https://github.com/thezombieguy
+ * @package Pip
+ */
 class Autoload {
 
-  public $callback;  
+  private $callback;  
   
+  /*
+   * initiates the autoload.
+   */
   public function __construct()
   {
     $this->callback = array($this, 'autoload');
+    $this->register();
   }
   
-  public function getCallback()
-  {
-    print_r($this->callback);
-  }
-  
-  public function register()
+  /*
+   * Registers the autoload function
+   * 
+   * @return array $this callback for autoload
+   */
+  private function register()
   {
     spl_autoload_register($this->callback);
     return $this;
   }
   
-  public function autoload($class)
+  /*
+   * load a class
+   *
+   * @param string  $class  the class you want to load
+   * @return  void
+   */
+  private function autoload($class)
   {
     global $config;
+    
+    //this needs sepoerate configuration. But will go here for now. Default application settings.
     $paths = array(
       ROOT_DIR .'system/',
       APP_DIR . 'controllers/',

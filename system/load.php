@@ -1,5 +1,13 @@
 <?php
-
+/*
+ * Load class
+ * 
+ * Loads base functions for mvc framework.
+ *
+ * @author Original Craig Russell https://github.com/craig552uk
+ * @author Bryan Trudel https://github.com/thezombieguy
+ * @package PIP
+ */
   class Load
   {
     /*

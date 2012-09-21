@@ -1,5 +1,13 @@
 <?php
-
+/*
+ * Pip class
+ *
+ * Loads the framework. MVC core.
+ *
+ * @author Original (base functionality) Gilbert Pellegrom https://github.com/gilbitron
+ * @author Bryan Trudel https://github.com/thezombieguy
+ * @package PIP
+ */
   class Pip {
   
     /*
@@ -9,11 +17,10 @@
      */
     public function __construct()
     {
+	    $autoload = new AutoLoad();
 	    global $config;
       
-
       $url = $this->url();
-
 	    $segments = explode('/', $url);
 
 	    $method = $this->controllerValidate(
