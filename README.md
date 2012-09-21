@@ -37,3 +37,5 @@ redirect($location) - Redirect to a page without having to include the base URL.
 ## License
 
 PIP is released under the MIT license.
+
+[![endorse](http://api.coderwall.com/thezombieguy/endorsecount.png)](http://coderwall.com/thezombieguy)
