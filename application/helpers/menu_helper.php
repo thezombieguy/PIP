@@ -1,8 +1,20 @@
 <?php
-
+/*
+ * Menu_helper class
+ *
+ * A very basic menu helper to help build out list item menus.
+ *
+ * @author Bryan Trudel https://github.com/thezombieguy
+ */
 class Menu_helper
 {
   
+  /*
+   * Build a menu from an array
+   * 
+   * @param   array $items  an array of menu items
+   * @return  string  $nav  a rendered menu
+   */
   public function build($items)
   {
     global $config;
@@ -21,10 +33,6 @@ class Menu_helper
     return $nav;
   }
   
-  public function current()
-  {
-  
-  }
 }
 
 ?>

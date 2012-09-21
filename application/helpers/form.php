@@ -1,5 +1,11 @@
 <?php
-
+/*
+ * Form class
+ *
+ * A form helper. Will render a full form, or basic form elements. Beta-ish. I wouldn't use this.
+ *
+ * @author Bryan Trudel https://github.com/thezombieguy
+ */
 class Form
 {
 

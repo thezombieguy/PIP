@@ -1,5 +1,11 @@
 <?php
-
+/*
+ * Utility_helper class
+ *
+ * Some basic utilities. These should be a plugin perhaps.
+ *
+ * @author Bryan Trudel https://github.com/thezombieguy
+ */
 class Utility_helper {
 
 	function debug($data = null)
