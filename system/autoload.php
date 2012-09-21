@@ -9,7 +9,8 @@
  */
 class Autoload {
 
-  private $callback;  
+  private $callback; 
+  private static $instance; 
   
   /*
    * initiates the autoload.
@@ -18,6 +19,20 @@ class Autoload {
   {
     $this->callback = array($this, 'autoload');
     $this->register();
+  }
+  
+  /*
+   * Get singleton instance
+   */
+  function getInstance()
+  {
+    if(!self::$instance){
+    
+      self::$instance = new Autoload();
+      
+    }
+        
+    return self::$instance;
   }
   
   /*
