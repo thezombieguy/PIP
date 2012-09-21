@@ -10,13 +10,15 @@ define('APP_DIR', ROOT_DIR .'application/');
 require(APP_DIR .'config/config.php');
 require(ROOT_DIR .'system/autoload.php');
 
+
 // Define base URL
 global $config;
 define('BASE_URL', $config['base_url']);
 
 //Start the Session
 session_start();
-
+//autoload
+Autoload::getInstance();
 //initialize
 $pip = new Pip();
 

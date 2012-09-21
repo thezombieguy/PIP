@@ -17,7 +17,7 @@
      */
     public function __construct()
     {
-	    $autoload = new AutoLoad();
+	    
 	    global $config;
       
       $url = $this->url();
