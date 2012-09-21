@@ -14,14 +14,10 @@ require(ROOT_DIR .'system/autoload.php');
 global $config;
 define('BASE_URL', $config['base_url']);
 
-
-
 //Start the Session
 session_start();
 
-//autoload 
-$autoload = new AutoLoad();
-$autoload->register();
+//initialize
 $pip = new Pip();
 
 ?>
