@@ -4,55 +4,29 @@
   {
     function index()
     {
-      $link = array(
-        '' => 'home',
-        'test/form' => 'Form Test',
-        'test/xml' => 'RPC Test',
-        'test/cache' => 'Cache Test',
-        'test/menu' => 'Menu test',
-      );
-      $url = $this->load->helper('Url_helper');
-      foreach($link as $path => $title){
-        print "<li>".$url->l($path, $title)."</li>";
-      }
+      $template = $this->load->view('main_view');
+      $menu = $this->load->helper('Menu_helper');
+      $items = $menu->load('test_menu');
+      $template->set('nav', $menu->build($items));
+      $template->set('content', 'Test suite. Use menus to navigate');
+		  $template->render();
     }
     
     function menu()
     {
-      $menu = array(
-        array(
-          'title' => 'Home',
-          'url' => '',
-        ),
-        array(
-          'title' => 'Test Index',
-          'url' => 'test',
-          'children' => array(
-            array(
-              'title' => 'Test Form',
-              'url' => 'test/form',
-            ),
-            array(
-              'title' => 'Test Cache',
-              'url' => 'test/cache',
-            ),
-            array(
-              'title' => 'Test Menu',
-              'url' => 'test/menu',
-            ),
-            array(
-              'title' => 'Test xml',
-              'url' => 'test/xml',
-            ),
-          ),
-        ),
-      );
-      $m = $this->load->helper('Menu_helper');
-      print $m->build($menu);
+      $template = $this->load->view('main_view');
+      $menu = $this->load->helper('Menu_helper');
+      $items = $menu->load('test_menu');
+      $mitems = $menu->load('main_menu');
+      print_r($menu->build($mitems));
+      $template->set('nav', $menu->build($items));
+      $template->set('content', 'Menu Test');
+		  $template->render();
     }
     
     function form()
     {      
+      $template = $this->load->view('main_view');
       $form = array(
         'method' => 'POST',
         'action' => 'test/post',
@@ -145,7 +119,7 @@
         ),
       );
       $f = $this->load->helper('Form');
-      print $f->build($form);
+      $form = $f->build($form);
       $radio = array(
             'type' => 'radio',
             'name' => 'numberSelect',
@@ -161,7 +135,13 @@
             '#prefix' => '<div class="numberSelect">',
             '#suffix' => '</div>',
           );
-      print $f->radio($radio);
+      $radioform = $f->radio($radio);
+      
+      $menu = $this->load->helper('Menu_helper');
+      $items = $menu->load('test_menu');
+      $template->set('nav', $menu->build($items));
+      $template->set('content', 'Form Test<br />'.$form.$radioform);
+		  $template->render();
     }
     
     function cache()
@@ -169,16 +149,37 @@
       $cache = $this->load->model('cache_model');
       $cache->set('bob', time());
       $bob = $cache->get('bob');
-      print $bob->html;
+      $template = $this->load->view('main_view');
+      
+      $menu = $this->load->helper('Menu_helper');
+      $items = $menu->load('test_menu');
+      $template->set('nav', $menu->build($items));
+      $template->set('content', 'Cache Test<br />'.$bob->html);
+		  $template->render();
     }
     
     public function xml()
     {
+      $this->load->plugin('utils');
       $url = 'http://www.engadget.com/rss.xml';
       $http = $this->load->model('http_model');
       $utils = $this->load->helper('utility_helper');
       $xml = $http->request($url);
-      $utils->debug($utils->xml_to_array($xml));
+            
+      $template = $this->load->view('main_view');
+
+      $menu = $this->load->helper('Menu_helper');
+      $items = $menu->load('test_menu');
+      $template->set('nav', $menu->build($items));
+      $template->set('content', 'xml Test<br />'.print_rr($utils->xml_to_array($xml)));
+		  $template->render();
+    
+    }
+    
+    public function cron()
+    {
+      $cache = $this->load->model('Cache_model');
+      $cache->set('cron', 'fuck monkey ' . time());
     }
    
  }

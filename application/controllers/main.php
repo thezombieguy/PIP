@@ -2,26 +2,23 @@
 
 class Main extends Controller {
 	
-	function index()
+	public function index()
 	{
+		$this->load->plugin('utils');
+
 		$template = $this->load->view('main_view');
 		$url = $this->load->helper('Url_helper');
 		$menu = $this->load->helper('menu_helper');
-		
-		$links = array(
-        array(
-          'title' => 'Home',
-          'url' => '',
-        ),
-        array(
-          'title' => 'Test',
-          'url' => 'test',
-        ),
-      );
-        
-		$template->set('nav', $menu->build($links));
+    $items = $menu->load('test_menu') ;
+
+		$template->set('nav', $menu->build($items));
 		$template->set('content', $url->l('test', 'Welcome to PIP (modified)', array('id' => 'main')));
 		$template->render();
+	}
+	
+	public function cron()
+	{
+	  
 	}
     
 }
