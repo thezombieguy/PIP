@@ -33,6 +33,18 @@ class Menu_helper
     return $nav;
   }
   
+  
+  /*
+   * Fetch the predefined menu
+   *
+   * @return  array  $menu the predefine menu iarray 
+   */	 	
+  public function load($menu_id)
+  {
+    require(APP_DIR.'config/menus.php');
+    return (!empty($menu[$menu_id])) ? $menu[$menu_id] : null;
+  }
+  
 }
 
 ?>
