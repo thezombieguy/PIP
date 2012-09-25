@@ -56,7 +56,9 @@
     */	
 	  public function helper($name)
 	  {
-		  require(APP_DIR .'helpers/'. strtolower($name) .'.php');
+		  if(!class_exists($name)){
+		    require(APP_DIR .'helpers/'. strtolower($name) .'.php');
+	    }
 		  $helper = new $name;
 		  return $helper;
 	  }
