@@ -18,8 +18,9 @@
      */
     public function model($name)
 	  {
-		  require(APP_DIR .'models/'. strtolower($name) .'.php');
-
+		  if(!class_exists($name)){
+		    require(APP_DIR .'models/'. strtolower($name) .'.php');
+      }
 		  $model = new $name;
 		  return $model;
 	  }
@@ -42,7 +43,7 @@
     * @param   string  $name  the name of the plugin
     * @return  void
     */
-    	  public function plugin($name)
+   public function plugin($name)
 	  {
 		  require(APP_DIR .'plugins/'. strtolower($name) .'.php');
 	  }
