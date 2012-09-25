@@ -178,9 +178,11 @@
     
     public function cron()
     {
-      $cache = $this->load->model('Cache_model');
-      $cache->set('cron', 'fuck monkey ' . time());
+	    $cache = $this->load->model('Cache_model');
+	    $cache->set('cron_main', 'testing cron from test class' . time());
     }
+    
+
    
  }
 

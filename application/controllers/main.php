@@ -16,9 +16,10 @@ class Main extends Controller {
 		$template->render();
 	}
 	
-	public function cron()
+  public function cron()
 	{
-	  
+	  $cache = $this->load->model('Cache_model');
+	  $cache->set('cron_main', 'testing cron from main class' . time());
 	}
     
 }
