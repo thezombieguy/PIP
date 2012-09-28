@@ -18,9 +18,6 @@
      */
     public function model($name)
 	  {
-		  if(!class_exists($name)){
-		    require(APP_DIR .'models/'. strtolower($name) .'.php');
-      }
 		  $model = new $name;
 		  return $model;
 	  }
@@ -56,9 +53,6 @@
     */	
 	  public function helper($name)
 	  {
-		  if(!class_exists($name)){
-		    require(APP_DIR .'helpers/'. strtolower($name) .'.php');
-	    }
 		  $helper = new $name;
 		  return $helper;
 	  }
