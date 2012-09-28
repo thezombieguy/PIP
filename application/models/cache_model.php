@@ -25,9 +25,7 @@
     public function get($id) 
     {
       $filename = $this->basepath.'cache_' . $id;
-      $cache = new stdClass();
-      $cache->html = '';
-      $cache->time = 0;
+      $cache = (object)array('html' => '', 'time' => 0);
       $html = @file_get_contents($filename);
       if (!$html) 
       {
