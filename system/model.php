@@ -3,7 +3,7 @@
   class Model {
 
 	  private $connection;
-	  private $load;
+	  public $load;
 
 	  public function __construct()
 	  {
