@@ -196,7 +196,7 @@ class Main extends Controller {
 	
     function index()
     {
-        $template = $this-&gt;load->&gt;iew('main_view');
+        $template = $this-&gt;load-&gt;view('main_view');
         $template-&gt;render();
     }
     
@@ -211,7 +211,7 @@ class Main extends Controller {
 	
     function index()
     {
-        $template = $this-&gt;load->&gt;iew('main_view');
+        $template = $this-&gt;load-&gt;view('main_view');
         $html = $template-&gt;fetch();
         print $html;
     }
@@ -303,7 +303,7 @@ class Main extends Controller {
     
     function cron()
     {
-      $cache = $this-&gt;load--&gt;model('Cache_model');
+      $cache = $this-&gt;load-&gt;model('Cache_model');
       $cache->set('cron_test', time());
     }
     
