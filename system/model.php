@@ -2,16 +2,15 @@
 
   class Model {
 
-	  private $connection;
 	  public $load;
+	  private $db;
 
 	  public function __construct()
 	  {
 		  global $config;
 		  $this->load = new Load();
 		  if(!empty($config['db_host']) && !empty($config['db_username']) && !empty($config['db_password'])){
-		    $this->connection = mysql_pconnect($config['db_host'], $config['db_username'], $config['db_password']) or die('MySQL Error: '. mysql_error());
-		    mysql_select_db($config['db_name'], $this->connection);
+		    $this->db = mysqli_connect($config['db_host'], $config['db_username'], $config['db_password'], $config['db_name']) or die('MySQL Error: '. mysql_error());
 		  }
 		
 	  }
@@ -49,19 +48,21 @@
 	
 	  public function query($qry)
 	  {
-		  $result = mysql_query($qry) or die('MySQL Error: '. mysql_error());
+		  $result = $this->db->query($qry) or die('MySQL Error: '. $this->db->error());
 		  $resultObjects = array();
 
-		  while($row = mysql_fetch_object($result)) $resultObjects[] = $row;
+		  while($row = $result->fetch_assoc()) $resultObjects[] = $row;
 
 		  return $resultObjects;
 	  }
 
 	  public function execute($qry)
 	  {
-		  $exec = mysql_query($qry) or die('MySQL Error: '. mysql_error());
+		  $exec = $this->db->query($qry) or die('MySQL Error: '. $this->db->error());
 		  return $exec;
 	  }
+	  
+	  
       
   }
 ?>
