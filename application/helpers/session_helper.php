@@ -9,7 +9,7 @@ class Session_helper {
 	
 	function get($key)
 	{
-		return $_SESSION["$key"];
+		return !empty($_SESSION["$key"]) ? $_SESSION["$key"] : NULL;
 	}
 	
 	function destroy()
