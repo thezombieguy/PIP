@@ -7,11 +7,12 @@ define('APP_DIR', ROOT_DIR .'application/');
 require(APP_DIR .'config/config.php');
 require(ROOT_DIR .'system/autoload.php');
 
-// Define base URL
+// global vars
 global $config;
-define('BASE_URL', $config['base_url']);
+global $routes;
 
 //Start the Session
 session_start();
+
 //autoload
 Autoload::getInstance();

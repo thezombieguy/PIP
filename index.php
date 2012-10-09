@@ -1,6 +1,6 @@
 <?php
 /*
- * PIP v0.5.3
+ * PIP v0.5.x
  */
 
 include('bootstrap.php');
