@@ -17,6 +17,7 @@
      */
     public function __construct()
     {
+	    Load::plugin('utils');//Core plugin to load.
 	    
 	    global $config;
       
@@ -34,7 +35,7 @@
 	    $action = $method['action'];
 
 	    $obj = new $controller;
-        die(call_user_func_array(array($obj, $action), array(array_slice($segments, 2))));
+      die(call_user_func_array(array($obj, $action), array(array_slice($segments, 2))));
     }
     
     /*
