@@ -56,14 +56,7 @@ class Autoload {
   {
     global $config;
     
-    //this needs sepoerate configuration. But will go here for now. Default application settings.
-    $paths = array(
-      ROOT_DIR .'system/',
-      APP_DIR . 'controllers/',
-      APP_DIR . 'helpers/',
-      APP_DIR . 'models/',
-      APP_DIR . 'plugins/',
-    );
+    $paths = $config['autoload_paths'];
 
     foreach($paths as $path){
       if(file_exists($path . strtolower($class) . '.php')) {
