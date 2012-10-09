@@ -4,7 +4,6 @@ class Main extends Controller {
 	
 	public function index()
 	{
-		$this->load->plugin('utils');
 
 		$template = $this->load->view('main_view');
 		$url = $this->load->helper('Url_helper');

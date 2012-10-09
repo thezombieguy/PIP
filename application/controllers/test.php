@@ -160,7 +160,6 @@
     
     public function xml()
     {
-      $this->load->plugin('utils');
       $url = 'http://www.engadget.com/rss.xml';
       $http = $this->load->model('http_model');
       $utils = $this->load->helper('utility_helper');
