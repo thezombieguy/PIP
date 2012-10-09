@@ -23,7 +23,7 @@ class Menu_helper
     
     foreach($items as $index => $item){
     
-      $nav .= '<li class="nav"><a href="'.$config['base_url'] . $item['url'].'">'.$item['title'].'</a>';
+      $nav .= '<li class="nav"><a href="'.BASE_URL . $item['url'].'">'.$item['title'].'</a>';
       $nav .= isset($item['children']) ? $this->build($item['children']) : NULL;
       $nav .= '</li>';
       
