@@ -2,7 +2,7 @@
 
 PIP is a tiny application framework built for people who use a LAMP stack. PIP aims to be as simple as possible to set up and use.
 
-Visit [http://thezombieguy.github.com/PIP](http://gilbitron.github.com/PIP/) for more information and documentation.
+Visit [http://thezombieguy.github.com/PIP](http://thezombieguy.github.com/PIP/) for more information and documentation.
 
 ## Requirements
 
@@ -17,7 +17,7 @@ Visit [http://thezombieguy.github.com/PIP](http://gilbitron.github.com/PIP/) for
 
 ## Documentation
 
-Visit [http://thezombieguy.github.com/PIP](http://gilbitron.github.com/PIP/) to see the documentation.
+Visit [http://thezombieguy.github.com/PIP](http://thezombieguy.github.com/PIP/) to see the documentation.
 
 
 
