@@ -6,7 +6,7 @@ Visit [http://thezombieguy.github.com/PIP](http://thezombieguy.github.com/PIP/) 
 
 ## Requirements
 
-* PHP 5.1 or greater
+* PHP 5.3 or greater
 * MySQL 4.1.2 or greater
 * The mod_rewrite Apache module
 
