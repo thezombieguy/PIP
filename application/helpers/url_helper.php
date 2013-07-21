@@ -17,8 +17,7 @@
      */
 	  function base_url()
 	  {
-		  global $config;
-		  return $config['base_url'];
+		  return BASE_URL;
 	  }
 	
     /*
@@ -50,7 +49,7 @@
       foreach($attributes as $attribute => $value){
         $att[] = $attribute .'="' . $value.'"';
       }
-      return '<a href="'.$config['base_url'] . $path.'" '. implode(' ', $att) .'>'.$title.'</a>';
+      return '<a href="'.BASE_URL . $path.'" '. implode(' ', $att) .'>'.$title.'</a>';
     }
     
     /*
