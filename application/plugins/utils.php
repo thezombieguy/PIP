@@ -16,6 +16,15 @@
     var_dump($data);
     print "</pre>";
   }
+  /*
+   * Function to encode plain text for safe html use
+   * 
+   * @param string  $text text string to make plain text
+   * @return  string  $text Clean html safe string.
+   */
+  function plain_text($text) {
+    return htmlspecialchars($text, ENT_QUOTES, 'UTF-8');
+  }
 
 
 ?>
