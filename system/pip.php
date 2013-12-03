@@ -56,6 +56,9 @@
 	    {
 	      $url = trim(preg_replace('/'. str_replace('/', '\/', str_replace('index.php', '', $script_url)) .'/', '', $request_url, 1), '/');
       }
+      //remove the query parameter so it doesn't get parsed as part of the url.
+      $url = preg_replace('/\?.*/', '', $url);
+
       $router = new Route();
       $url = $router->map($route, $url);
       return $url;
