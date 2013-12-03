@@ -175,6 +175,15 @@
     
     }
     
+
+    public function router($args = array())
+    {
+
+      print_rr($args);
+
+    }
+
+
     public function cron()
     {
 	    $cache = $this->load->model('Cache_model');

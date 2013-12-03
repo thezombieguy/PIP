@@ -26,4 +26,8 @@ $config['autoload_paths'] = array(
 //routing.
 $route['home'] = 'main';
 
+//matching precedence. longest to shortest. can be :anythingyouwanthere:
+$route['bunny/:id:/foofoo/:value:/:val:'] = 'test/router/:id:/:value:/:val:';
+$route['bunny/:val:/foofoo/:id:'] = 'test/router/:val:/:id:';
+
 ?>
