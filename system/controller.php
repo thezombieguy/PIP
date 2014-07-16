@@ -1,27 +1,19 @@
 <?php
 
-  class Controller {
+  abstract class Controller {
 	
 	  public $load;
+
+	  /**
+	   * abstract index. Requires pages to have indexes.
+	   */
+	  abstract public function index($args);
 
 	  public function __construct()
 	  {
 	    $this->load = new Load();
 	  }
 	
-	  /*
-	   * Redirects to a new url
-	   *
-	   * @param   string  $loc  URL to recirect to 
-	   * @return  void
-	   */
-    public function redirect($loc)
-	  {
-		  global $config;
-		
-		  header('Location: '. $config['base_url'] . $loc);
-	  }
-
 	  /*
 	   * Provides a basic JSON response header. Useful for providing ajax data.
 	   *

@@ -69,6 +69,16 @@
 	    
 	    return $url;
     }
+
+    /*
+     * Redirects to a new url
+     * @param   string  $loc  URL to redirect to. 
+     * @return  void
+     */
+    public function redirect($loc)
+    {
+      header('Location: '. BASE_URL . $loc);
+    }
 	
   }
 
